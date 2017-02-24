@@ -1,0 +1,16 @@
+os: Visual Studio 2015
+clone_depth: 10
+
+branches:
+    only:
+    - 2.7
+
+platform:
+    - x64
+    # - x86
+
+build_script:
+    - C:\Python36-x64\python.exe win-ci.py build
+
+test_script:
+    - C:\Python36-x64\python.exe win-ci.py test
