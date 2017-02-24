@@ -158,7 +158,7 @@ def printf(*args, **kw):
 
 def sanitize_path():
     needed_paths = [r'C:\Windows\System32']
-    executables = 'git.exe curl.exe svn.exe'.split()
+    executables = 'git.exe curl.exe svn.exe powershell.exe'.split()
     for p in os.environ['PATH'].split(os.pathsep):
         for x in tuple(executables):
             if os.path.exists(os.path.join(p, x)):
@@ -198,7 +198,9 @@ def build():
     # so prevent build.bat from calling it, since we have called it
     # already and fixed the paths, anyway.
     replace_in_file('PCbuild\\build.bat',
-                    re.compile(br'^call.+env.bat.+$', re.MULTILINE), '')
+                    re.compile(br'^rem Setup the environment.*?\)',
+                               re.MULTILINE | re.DOTALL),
+                    'set MSBUILD=msbuild')
     cmd = ('PCbuild\\build.bat', '-e', '--no-tkinter', '--no-bsddb', '-c',
            'Release', '-m', '-p', ('x64' if is64bit else 'Win32'), '-v', '-t',
            'Build')
