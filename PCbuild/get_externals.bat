@@ -29,7 +29,7 @@ if exist "%EXTERNALS_DIR%" (
 if "%DO_FETCH%"=="false" goto end
 :fetch
 
-if "%ORG%"=="" (set ORG=python)
+if "%ORG%"=="" (set ORG=kovidgoyal)
 call "%PCBUILD%\find_python.bat" "%PYTHON%"
 
 git 2>&1 > nul
@@ -48,7 +48,7 @@ set libraries=
 set libraries=%libraries%                                    bzip2-1.0.6
 if NOT "%IncludeBsddb%"=="false" set libraries=%libraries%   bsddb-4.7.25.0
 if NOT "%IncludeSSL%"=="false" set libraries=%libraries%     openssl-1.0.2s
-set libraries=%libraries%                                    sqlite-3.14.2.0
+set libraries=%libraries%                                    sqlite-3.26.0.0
 if NOT "%IncludeTkinter%"=="false" set libraries=%libraries% tcl-8.5.19.0
 if NOT "%IncludeTkinter%"=="false" set libraries=%libraries% tk-8.5.19.0
 if NOT "%IncludeTkinter%"=="false" set libraries=%libraries% tix-8.4.3.5
@@ -56,12 +56,9 @@ if NOT "%IncludeTkinter%"=="false" set libraries=%libraries% tix-8.4.3.5
 for %%e in (%libraries%) do (
     if exist "%EXTERNALS_DIR%\%%e" (
         echo.%%e already exists, skipping.
-    ) else if NOT DEFINED PYTHON (
+    ) else (
         echo.Fetching %%e with git...
         git clone --depth 1 https://github.com/%ORG%/cpython-source-deps --branch %%e "%EXTERNALS_DIR%\%%e"
-    ) else (
-        echo.Fetching %%e...
-        %PYTHON% "%PCBUILD%\get_external.py" -O %ORG% %%e
     )
 )
 
@@ -74,12 +71,9 @@ if NOT "%IncludeSSL%"=="false" set binaries=%binaries%     nasm-2.11.06
 for %%b in (%binaries%) do (
     if exist "%EXTERNALS_DIR%\%%b" (
         echo.%%b already exists, skipping.
-    ) else if NOT DEFINED PYTHON (
+    ) else (
         echo.Fetching %%b with git...
         git clone --depth 1 https://github.com/%ORG%/cpython-bin-deps --branch %%b "%EXTERNALS_DIR%\%%b"
-    ) else (
-        echo.Fetching %%b...
-        %PYTHON% "%PCBUILD%\get_external.py" -b -O %ORG% %%b
     )
 )
 
