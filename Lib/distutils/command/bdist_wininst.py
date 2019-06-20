@@ -345,6 +345,9 @@ class bdist_wininst (Command):
         else:
             # for current version - use authoritative check.
             bv = get_build_version()
+            # this fudge is needed for VS 2017
+            if bv == 14.1:
+                bv = 14.0
 
         # wininst-x.y.exe is in the same directory as this file
         directory = os.path.dirname(__file__)

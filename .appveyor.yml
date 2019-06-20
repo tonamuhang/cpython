@@ -1,4 +1,4 @@
-os: Visual Studio 2015
+os: Visual Studio 2017
 clone_depth: 10
 
 branches:
@@ -10,7 +10,7 @@ platform:
     # - x86
 
 build_script:
-    - C:\Python36-x64\python.exe win-ci.py build
+    - C:\Python37-x64\python.exe win-ci.py build
 
 test_script:
-    - C:\Python36-x64\python.exe win-ci.py test
+    - C:\Python37-x64\python.exe win-ci.py test
