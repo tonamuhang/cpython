@@ -20,9 +20,11 @@ Requirements
 ------
 Maya 2018
 
-Visual Studio 2015
+Visual Studio 2015 and Visual C++ 2015
 
 Microsoft Visual C++ Compiler for Python 2.7
+
+Git
 
 Install
 ------
